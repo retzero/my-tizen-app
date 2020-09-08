@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  pull_request:
+
+jobs:
+  docker_build:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build docker image for tags
+        uses: retzero/tizen-studio-cli-action@dev
+        with:
+          command: "build-native"
+          rootstrap: "mobile-5.5-device.core"
+          build_mode: "Debug"
+          compiler: "llvm"
+          architecture: "arm"
+          working_directory: "${{ github.workspace }}"
