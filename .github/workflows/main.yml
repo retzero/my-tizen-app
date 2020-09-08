@@ -20,7 +20,7 @@ jobs:
         uses: retzero/tizen-studio-cli-action@dev
         with:
           command: "build-native"
-          rootstrap: "mobile-5.5-device.core"
+          rootstrap_name: "mobile-5.5-device.core"
           build_mode: "Debug"
           compiler: "llvm"
           architecture: "arm"
