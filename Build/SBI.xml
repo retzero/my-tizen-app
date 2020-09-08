@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sbi version="0.1">
+    <macros scope="common">
+        <input name="DIR_SEP" method="sysvar" source="OS" value="dir.separator" />
+        <input name="PATH_SEP" method="sysvar" source="OS" value="path.separator" />
+        <input name="OS_WINDOWS" method="sysvar" source="OS" value="os.name.windows" />
+
+        <input name="SBI_HOME" method="sysvar" source="SDK" value="sbi.path" />
+
+        <input name="MAKE_BIN_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/tool[@name='make']/@path" />
+        <input name="MAKE_BIN" method="sysvar" source="TOOLCHAIN" value="tool:make" />
+        <input name="CLANG_BIN_PATH_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/tool[@name='c_compiler']/@path" />
+        <input name="CLANG_BIN_PATH" method="sysvar" source="TOOLCHAIN" value="tool:c_compiler" />
+        <input name="GCC_BIN_PATH_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/tool[@name='gcc']/@path" />
+        <input name="GCC_BIN_PATH" method="sysvar" source="TOOLCHAIN" value="tool:gcc" />
+        <input name="CXX_BIN_PATH_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/tool[@name='c++_compiler']/@path" />
+        <input name="CXX_BIN_PATH" method="sysvar" source="TOOLCHAIN" value="tool:c++_compiler" />
+        <input name="AR_BIN_PATH" method="sysvar" source="TOOLCHAIN" value="tool:archiver" />
+        <input name="EDJE_CC_PATH_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/tool[@name='edje_cc']/@path" />
+        <input name="EDJE_CC_PATH" method="sysvar" source="TOOLCHAIN" value="tool:edje_cc" />
+        <input name="MSGFMT_BIN" method="sysvar" source="TOOLCHAIN" value="tool:msgfmt" />
+        <input name="CKSUM_BIN" method="sysvar" source="TOOLCHAIN" value="tool:cksum" />
+
+        <input name="PLATFORM_EDJE_CC_PATH_X" method="xpath" source="ROOTSTRAP" value="/extension/rootstrap/property[@key='EDJE_CC']/@value" />
+        <input name="PLATFORM_EDJE_CC_PATH" method="sysvar" source="ROOTSTRAP" value="property:EDJE_CC" />
+        <input name="PLATFORM_EDJE_CC_TOOL_PATH_X" method="xpath" source="ROOTSTRAP" value="/extension/rootstrap/tool[@key='EDJE_CC']/@value" />
+        <input name="PLATFORM_EDJE_CC_TOOL_PATH" method="sysvar" source="ROOTSTRAP" value="tool:EDJE_CC" />
+        <input name="ROOTSTRAP_PATH_X" method="xpath" source="ROOTSTRAP" value="/extension/rootstrap/@path" />
+        <input name="ROOTSTRAP_PATH" method="sysvar" source="ROOTSTRAP" value="property:path" attr="linuxsep" />
+        <input name="ROOTSTRAP_INFO_PATH_X" method="xpath" source="ROOTSTRAP" value="/extension/rootstrap/property[@key='DEV_PACKAGE_CONFIG_PATH']/@value" />
+        <input name="ROOTSTRAP_INFO_PATH" method="sysvar" source="ROOTSTRAP" value="property:DEV_PACKAGE_CONFIG_PATH" attr="linuxsep" />
+        <input name="TC_COMPILER_MISC_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/property[@key='COMPILER_MISCELLANEOUS_OPTION']/@value" />
+        <input name="TC_COMPILER_MISC" method="sysvar" source="TOOLCHAIN" value="property:COMPILER_MISCELLANEOUS_OPTION" />
+        <input name="TC_LINKER_MISC_X" method="xpath" source="TOOLCHAIN" value="/extension/toolchain/property[@key='LINKER_MISCELLANEOUS_OPTION']/@value" />
+        <input name="TC_LINKER_MISC" method="sysvar" source="TOOLCHAIN" value="property:LINKER_MISCELLANEOUS_OPTION" />
+        <input name="RS_COMPILER_MISC_X" method="xpath" source="ROOTSTRAP" value="/extension/rootstrap/property[@key='COMPILER_MISCELLANEOUS_OPTION']/@value" />
+        <input name="RS_COMPILER_MISC" method="sysvar" source="ROOTSTRAP" value="property:COMPILER_MISCELLANEOUS_OPTION" />
+        <input name="RS_LINKER_MISC_X" method="xpath" source="ROOTSTRAP" value="/extension/rootstrap/property[@key='LINKER_MISCELLANEOUS_OPTION']/@value" />
+        <input name="RS_LINKER_MISC" method="sysvar" source="ROOTSTRAP" value="property:LINKER_MISCELLANEOUS_OPTION" />
+
+        <input name="PLATFORM_INCS" source="ROOTSTRAP" method="sysvar" value="devpackage:include_path" separator=" " prefix="" surfix="" />
+        <input name="PLATFORM_INCS_X" source="FILE:${ROOTSTRAP_INFO_PATH}" method="xpath" value="/PackageInfo/DevPackage/include_path/text()" separator=" " />
+        <input name="PLATFORM_LIB_PATHS" source="ROOTSTRAP" method="sysvar" value="devpackage:library_path" separator=" " />
+        <input name="PLATFORM_LIB_PATHS_X" source="FILE:${ROOTSTRAP_INFO_PATH}" method="xpath" value="/PackageInfo/DevPackage/library/text()" separator=" " />
+        <input name="RS_LIBRARIES" source="ROOTSTRAP" method="sysvar" value="devpackage:library" separator=" " />
+        <input name="RS_LIBRARIES_X" source="FILE:${ROOTSTRAP_INFO_PATH}" method="xpath" value="/PackageInfo/DevPackage/library/text()" separator=" " />
+        <input name="RS_LIBRARIES_2" source="ROOTSTRAP" method="sysvar" value="devpackage:library" separator=" " prefix="-l" />
+
+        <input name="SDK_PATH" method="sysvar" source="SDK" value="sdk.path" attr="linuxsep" />
+
+        <input name="PROJ_PATH" method="sysvar" source="PROJECT" value="project.path" attr="linuxsep" />
+        <input name="BUILD_CONFIG" method="sysvar" source="PROJECT" value="build.config" />
+        <input name="STRIP_INFO" method="sysvar" source="PROJECT" value="strip.info" />
+        <input name="BUILD_ARCH" method="sysvar" source="PROJECT" value="build.arch" />
+        <input name="BUILD_OPTIONS" method="sysvar" source="PROJECT" value="build.options" separator=" " prefix="-D" />
+
+        <input name="APPID" method="sysvar" source="PROJECT" value="app.id" />
+        <input name="APPTYPE" method="sysvar" source="PROJECT" value="app.type" />
+
+        <input name="EDJE_CC_BIN" method="user" value="?select|${PLATFORM_EDJE_CC_TOOL_PATH},${PLATFORM_EDJE_CC_PATH},${EDJE_CC_PATH}*" />
+
+        <input name="BUILD_SCRIPT_PARAM" method="user" value="${_PARAM8_}/makefile" />
+        <input name="BUILD_SCRIPT_LOCAL" method="user" value="${PROJ_PATH}/Build/makefile" />
+        <input name="BUILD_SCRIPT_GLOBAL" method="user" value="${SDK_PATH}/tools/ide/resources/native/Build/makefile" />
+        <input name="BUILD_SCRIPT_1" method="user" value="?if|${_PARAM9_},${BUILD_SCRIPT_LOCAL},${BUILD_SCRIPT_GLOBAL}*" />
+        <input name="BUILD_SCRIPT_2" method="user" value="?if|${_PARAM9_},${BUILD_SCRIPT_GLOBAL},${BUILD_SCRIPT_LOCAL}*" />
+        <input name="BUILD_SCRIPT" method="user" value="?select|?file|${BUILD_SCRIPT_PARAM}*,?file|${BUILD_SCRIPT_1}*,?file|${BUILD_SCRIPT_2}**" />
+        <input name="BUILD_SCRIPT_PATH" method="user" value="?dir|${BUILD_SCRIPT}*" attr="linuxsep" />
+    </macros>
+
+<!--
+    <variables>
+        <input name="PROJ_PATH" value="project.path" />
+        <input name="BUILD_CONFIG" value="build.config" />
+        <input name="BUILD_ARCH" value="build.arch" />
+        <input name="BUILD_OPTIONS" value="build.options" />
+
+        <input name="APPID" value="app.id" />
+        <input name="APPTYPE" value="app.type" />
+    </variables>
+-->
+
+    <action name="build" curdir="${PROJ_PATH}" type="make" default="true">
+        <execute exec="" order="0" attr="noexec">
+            <env type="batch" inputs="SBI_HOME,BUILD_CONFIG,BUILD_ARCH,STRIP_INFO" />
+            <env name="PROJ_PATH" value="${PROJ_PATH}" />
+
+            <!-- env name="+PATH" value="${SDK_PATH}/tools/mingw/bin${PATH_SEP}${SDK_PATH}/tools/mingw/msys/1.0/bin" separator="${PATH_SEP}" require="${OS_WINDOWS}" / -->
+            <env name="+PATH" value="${SDK_PATH}/tools/msys2/usr/bin" separator="${PATH_SEP}" require="${OS_WINDOWS}" />
+        </execute>
+
+        <execute exec="${_PARAM2_}" order="1" attr="necessary,linux">
+            <echo text="${_PARAM3_}"/>
+        </execute>
+
+        <execute exec="${MAKE_BIN}" curdir="${BUILD_SCRIPT_PATH}" order="2" attr="necessary">
+            <param name="param1" inputs="-f,&quot;${BUILD_SCRIPT}&quot;,-r" />
+            <param name="param2" inputs="--eval=&quot;SHELL=${SHELL_BIN}&quot;" require="${SHELL_BIN}" />
+            <param name="param3" inputs="-j,${_PARAM1_}" require="${_PARAM1_}" />
+
+            <echo text="prdefine options = ${BUILD_OPTIONS}" />
+
+            <env name="BUILD_ROOT" value="${BUILD_SCRIPT_PATH}" />
+
+            <env type="batch" inputs="TC_COMPILER_MISC,TC_LINKER_MISC,RS_COMPILER_MISC,RS_LINKER_MISC,APPID,APPTYPE" />
+            <env name="SDK_PATH" value="${SDK_PATH}" />
+            <env name="SDK_TOOLPATH" value="${SDK_PATH}/tools" attr="linuxsep" />
+
+            <env name="MAKE_BIN" value="${MAKE_BIN}" attr="executable" />
+            <env name="CC" value="${CLANG_BIN_PATH}" attr="executable" />
+            <env name="CXX" value="${CXX_BIN_PATH}" attr="executable" />
+            <env name="AR" value="${AR_BIN_PATH}" attr="executable" />
+            <env name="EDJE_CC_BIN" value="${EDJE_CC_BIN}" attr="executable" />
+            <env name="MSGFMT_BIN" value="${MSGFMT_BIN}" attr="strip,executable" />
+            <env name="CKSUM_BIN" value="${CKSUM_BIN}" attr="strip,executable" />
+
+            <env name="SDKPATH" value="${SDK_PATH}" />
+            <env name="SYSROOT" value="${ROOTSTRAP_PATH}" attr="linuxsep" />
+            <env name="PROJPATH" value="${PROJ_PATH}" attr="linuxsep" />
+            <env name="SBI_SYSROOT" value="${ROOTSTRAP_PATH}" attr="linuxsep" />
+            <env name="ARCH" value="${BUILD_ARCH}" />
+
+            <env name="ENVENTOR_PATH" value="${SDK_PATH}/tools/edc-editor" />
+
+            <env name="LD_LIBRARY_PATH+" value="?dir|${EDJE_CC_BIN}*/../lib" separator="${PATH_SEP}" />
+            <env name="+PATH" value="?dir|${CLANG_BIN_PATH}*${PATH_SEP}?dir|${CXX_BIN_PATH}*" separator="${PATH_SEP}" />
+            <env name="+PATH" value="?dir|${EDJE_CC_BIN}*" separator="${PATH_SEP}" />
+
+            <env name="PLATFORM_INCS_EX" value="${PLATFORM_INCS}" />
+            <env name="PLATFORM_LIB_PATHS" value="${PLATFORM_LIB_PATHS}" />
+
+            <env name="RS_LIBRARIES_EX" value="${RS_LIBRARIES}" />
+            <env name="RS_LIBRARIES" value="${RS_LIBRARIES_2}" />
+
+            <env name="CDEFS+" value="-DTIZEN_DEPRECATION -DDEPRECATION_WARNING ${BUILD_OPTIONS}" separator=" " attr="strip" />
+
+            <env name="OPTIONS+" value="-j ${_PARAM1_}" require="${_PARAM1_}" separator=" " />
+            <env name="PREDEFINE_SYMBOLS" value="${_PARAM6_}" />
+            <env name="OUTPUT_DIR" value="${_PARAM7_}" attr="strip"/>
+
+            <env name="workspace_loc" value="${_PARAM10_}" attr="strip,linuxsep"/>
+        </execute>
+
+        <execute exec="${_PARAM4_}" order="3" attr="necessary,linux">
+            <echo text="${_PARAM5_}"/>
+        </execute>
+    </action>
+
+    <action name="clean" curdir="${PROJ_PATH}" type="make" default="true">
+        <execute exec="${MAKE_BIN}" curdir="${PROJ_PATH}" order="0" attr="necessary">
+            <param name="param1" inputs="-f,&quot;${BUILD_SCRIPT}&quot;,-r" />
+            <param name="param2" inputs="--eval=&quot;SHELL=${SHELL_BIN}&quot;" require="${SHELL_BIN}" />
+            <param name="param3" optvalue="clean" />
+
+            <env name="PROJ_PATH" value="${PROJ_PATH}" />
+
+            <env name="CDEFS+" value="${BUILD_OPTIONS}" attr="strip" />
+
+            <env name="MAKE_BIN" value="${MAKE_BIN}" attr="executable" />
+        </execute>
+    </action>
+</sbi>
